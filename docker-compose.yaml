@@ -1,0 +1,51 @@
+version: '3'
+
+services: 
+  nginx:
+    labels: 
+      - fullcycle
+    build: ./nginx
+    image: dds22/public:nginx-fc02
+    container_name: nginx-container
+    networks: 
+      - net_fullcycle
+    ports: 
+      - "8080:8080"
+    expose: 
+      - "8080"
+    restart: always
+    depends_on: 
+      - node
+
+  node:
+    labels: 
+      - fullcycle
+    build: ./node
+    image: dds22/public:node-fc02
+    container_name: node-container
+    networks: 
+      - net_fullcycle
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - ./node/app:/usr/src
+    entrypoint: dockerize -wait tcp://mysql-container:3306 -timeout 60s
+    command: npm start
+
+  mysql:
+    labels: 
+      - fullcycle    
+    image: mysql:5.7
+    container_name: mysql-container
+    environment: 
+      - MYSQL_DATABASE=modulos 
+      - MYSQL_ROOT_PASSWORD=root
+    networks: 
+      - net_fullcycle
+    ports: 
+      - "3306:3306"
+    expose: 
+      - "3306"     
+
+networks: 
+  net_fullcycle:
