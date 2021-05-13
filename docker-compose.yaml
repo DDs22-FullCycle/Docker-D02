@@ -47,5 +47,8 @@ services:
     expose: 
       - "3306"     
 
+volumes:
+  volume_fullcycle:
+
 networks: 
   net_fullcycle:

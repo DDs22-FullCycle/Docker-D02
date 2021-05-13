@@ -5,11 +5,10 @@
   "author": "Douglas dos Santos <douglasdossantos22@gmail.com>",
   "main": "./app/index.ts",
   "scripts": {
-    "start-old": "npm run prisma-db && npx ts-node --project tsconfig.json && nodemon index.ts ",
     "start": "npm run prisma-db && npm run prisma-seed && npm run dev ",
     "prisma-db": "npx prisma db push && npx prisma generate ",
     "prisma-seed": "npx prisma db seed --preview-feature ",
-    "dev": "npx ts-node-dev --respawn --transpile-only index.ts "
+    "dev": "npx ts-node-dev --debug --respawn --poll --transpile-only --ignore-watch node_modules --project ./tsconfig.json index.ts "
   },
   "nodemonConfig": {
     "delay": "3"
