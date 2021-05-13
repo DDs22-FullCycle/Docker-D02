@@ -4,7 +4,6 @@ services:
   nginx:
     labels: 
       - fullcycle
-    build: ./nginx
     image: dds22/public:nginx-fc02
     container_name: nginx-container
     networks: 
@@ -20,7 +19,6 @@ services:
   node:
     labels: 
       - fullcycle
-    build: ./node
     image: dds22/public:node-fc02
     container_name: node-container
     networks: 
